@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Administrador",
+    "email": "usuario@empresa.com",
+    "passwordHash": "$2a$10$3wgf3EqvXhLXq.v.LxHKpOgvXxQdLlkxLu.hB7L9X1k7/Z3MZF8uq",
+    "role": "teacher",
+    "createdAt": "2026-05-12T22:27:46.462Z"
+  },
+  {
+    "id": 2,
+    "name": "Alumno",
+    "email": "alumno1@ejemplo.com",
+    "passwordHash": "$2a$10$JunrFBB4HMAmwSv90R9H/erJXaRshwI2A77Pw5RMB5CvWXXQxh7zS",
+    "role": "student",
+    "createdAt": "2026-05-12T22:40:40.751Z"
+  },
+  {
+    "id": 3,
+    "name": "juan jose",
+    "email": "juanjose@gmail.com",
+    "passwordHash": "$2a$10$R1ujKYLn/kFNVjCffv2GNuBnEC2H0k6bB.8MJJ8xD27YDgH7Zh8Sy",
+    "role": "student",
+    "createdAt": "2026-05-12T22:41:24.753Z"
+  },
+  {
+    "id": 4,
+    "name": "María García",
+    "email": "maria@ejemplo.com",
+    "passwordHash": "$2a$10$cF97yWJnHCgy4V6F1ctl8eL4FwLla31pS3C3vhzvRuM2sfIUfyRoO",
+    "role": "student",
+    "createdAt": "2026-05-21T19:20:27.253Z"
+  },
+  {
+    "id": 5,
+    "name": "Test User",
+    "email": "testuser@empresa.com",
+    "passwordHash": "$2a$10$ZawOMGxfRI3VZOFIXesD6ePkswSfNhAnbfsB4vSVvzoWjlwcQOp9i",
+    "role": "student",
+    "createdAt": "2026-05-21T19:24:10.614Z"
+  }
+]

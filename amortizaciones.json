@@ -1,0 +1,53 @@
+[
+  {
+    "id": 2,
+    "userId": 3,
+    "studentName": "juan jose",
+    "nombre": "Prestamo Estudiantil",
+    "monto": 120000,
+    "tasaAnual": 12,
+    "plazoAnios": 5,
+    "pagosAno": 12,
+    "pagoPeriodo": 2669.333722188211,
+    "totalPagado": 160160.02333129267,
+    "totalInteres": 40160.02333129267,
+    "status": "pendiente",
+    "reviewComment": "",
+    "reviewedAt": null,
+    "createdAt": "2026-05-12T22:41:37.981Z"
+  },
+  {
+    "id": 3,
+    "userId": 4,
+    "studentName": "María García",
+    "nombre": "Préstamo Personal",
+    "monto": 50000,
+    "tasaAnual": 8.5,
+    "plazoAnios": 3,
+    "pagosAno": 12,
+    "pagoPeriodo": 1578.37687117787,
+    "totalPagado": 56821.56736240332,
+    "totalInteres": 6821.5673624033225,
+    "status": "pendiente",
+    "reviewComment": "",
+    "reviewedAt": null,
+    "createdAt": "2026-05-21T19:20:51.307Z"
+  },
+  {
+    "id": 4,
+    "userId": 5,
+    "studentName": "Test User",
+    "nombre": "Préstamo de Casa",
+    "monto": 100000,
+    "tasaAnual": 5.5,
+    "plazoAnios": 20,
+    "pagosAno": 12,
+    "pagoPeriodo": 687.8873078592345,
+    "totalPagado": 165092.95388621627,
+    "totalInteres": 65092.95388621627,
+    "status": "pendiente",
+    "reviewComment": "",
+    "reviewedAt": null,
+    "createdAt": "2026-05-21T19:27:21.497Z"
+  }
+]

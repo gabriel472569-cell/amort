@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amortizaciones en línea</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Panel de Amortizaciones</h1>
+      <p>Un espacio profesional para estudiantes de Administración de Empresas que gestionan y revisan planes de pago.</p>
+    </header>
+
+    <section id="auth-section">
+      <div class="auth-grid">
+        <div class="auth-card">
+          <h2>Acceso a cuenta</h2>
+          <form id="login-form">
+            <label>
+              Correo electrónico
+              <input type="email" id="login-email" placeholder="usuario@empresa.com" required />
+            </label>
+            <label>
+              Contraseña
+              <input type="password" id="login-password" placeholder="Ingrese su contraseña" required />
+            </label>
+            <button type="submit">Acceder</button>
+          </form>
+          <p class="help-text">
+            <strong>Demo Admin:</strong><br>
+            usuario@empresa.com<br>
+            Contraseña: admin123
+          </p>
+        </div>
+
+        <div class="auth-card">
+          <h2>Crear cuenta</h2>
+          <form id="register-form">
+            <label>
+              Nombre completo
+              <input type="text" id="register-name" placeholder="Nombre y apellido" required />
+            </label>
+            <label>
+              Correo electrónico
+              <input type="email" id="register-email" placeholder="usuario@empresa.com" required />
+            </label>
+            <label>
+              Contraseña
+              <input type="password" id="register-password" placeholder="Mínimo 6 caracteres" required />
+            </label>
+            <button type="submit">Registrarse</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard-section" class="hidden">
+      <div class="topbar">
+        <div>
+          <strong id="welcome-name"></strong>
+        </div>
+        <div class="topbar-right">
+          <span id="user-role"></span>
+          <button id="logout-btn" class="secondary">Cerrar sesión</button>
+        </div>
+      </div>
+
+      <section class="menu-section">
+        <h2>Opciones</h2>
+        <div class="menu-grid">
+          <button id="show-form" class="menu-btn active">Generar Amortización</button>
+          <button id="show-exercises" class="menu-btn">Ejercicios</button>
+          <button id="show-records" class="menu-btn">Ver mis registros</button>
+        </div>
+      </section>
+
+      <section id="student-dashboard" class="student-dashboard">
+        <section class="exercise-section" id="exercise-section">
+          <h2>Ejercicios predefinidos</h2>
+          <p>Selecciona un ejercicio para cargar los datos en el formulario.</p>
+          <div class="exercise-grid">
+            <button type="button" class="exercise-card" data-nombre="Préstamo estudiantil" data-monto="120000" data-tasa="12" data-plazo="5" data-pagos="12">
+              <strong>Ejercicio 1</strong>
+              <span>Préstamo estudiantil</span>
+            </button>
+            <button type="button" class="exercise-card" data-nombre="Compra de equipo" data-monto="50000" data-tasa="9.5" data-plazo="3" data-pagos="12">
+              <strong>Ejercicio 2</strong>
+              <span>Compra de equipo</span>
+            </button>
+            <button type="button" class="exercise-card" data-nombre="Proyecto empresarial" data-monto="250000" data-tasa="15" data-plazo="7" data-pagos="4">
+              <strong>Ejercicio 3</strong>
+              <span>Proyecto empresarial</span>
+            </button>
+          </div>
+        </section>
+
+        <div class="form-and-summary">
+          <section class="form-section" id="form-section">
+            <h2>Generar amortización</h2>
+            <form id="amortizacion-form">
+              <label>
+                Nombre / Descripción
+                <input type="text" id="nombre" placeholder="Ej. Préstamo de capital" />
+              </label>
+              <label>
+                Monto
+                <input type="number" id="monto" step="0.01" min="0" required />
+              </label>
+              <label>
+                Tasa anual (%)
+                <input type="number" id="tasaAnual" step="0.01" min="0" required />
+              </label>
+              <label>
+                Plazo (años)
+                <input type="number" id="plazoAnios" min="1" required />
+              </label>
+              <label>
+                Pagos por año
+                <input type="number" id="pagosAno" min="1" value="12" required />
+              </label>
+              <div class="buttons">
+                <button type="submit">Guardar amortización</button>
+                <button type="button" id="cancelar" class="secondary">Cancelar edición</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="summary-section">
+            <h2>Resultados</h2>
+            <div class="summary-grid">
+              <div>
+                <strong>Pago por periodo</strong>
+                <p id="pagoPeriodo">-</p>
+              </div>
+              <div>
+                <strong>Total pagado</strong>
+                <p id="totalPagado">-</p>
+              </div>
+              <div>
+                <strong>Total interés</strong>
+                <p id="totalInteres">-</p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <section class="records-section">
+          <h2>Registros guardados</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Monto</th>
+                <th>Tasa anual</th>
+                <th>Plazo</th>
+                <th>Pago</th>
+                <th>Estado</th>
+                <th>Comentarios</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="records-body"></tbody>
+          </table>
+        </section>
+      </section>
+
+      <section id="teacher-dashboard" class="teacher-dashboard hidden">
+        <section class="records-section">
+          <h2>Revisión de envíos de alumnos</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Alumno</th>
+                <th>Nombre</th>
+                <th>Monto</th>
+                <th>Tasa anual</th>
+                <th>Plazo</th>
+                <th>Pago</th>
+                <th>Estado</th>
+                <th>Comentarios</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="teacher-records-body"></tbody>
+          </table>
+        </section>
+
+        <section class="records-section">
+          <h2>Estudiantes registrados</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Registrado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="users-body"></tbody>
+          </table>
+        </section>
+      </section>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
