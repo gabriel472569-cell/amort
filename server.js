@@ -72,7 +72,7 @@ app.use('/api', apiLimiter);
     console.log('✓ Ambiente: ' + (process.env.NODE_ENV || 'development'));
   } catch (error) {
     console.error('✗ Error inicializando:', error.message);
-    process.exit(1);
+    console.log('⚠ Continuando sin base de datos...');
   }
 })();
 

@@ -1,36 +1,17 @@
-const { Sequelize } = require('sequelize');
-const userModel = require('./User_Sequelize');
-const amortizacionModel = require('./Amortizacion_Sequelize');
-
-let sequelize;
+const User = require('./UserJson');
+const Amortizacion = require('./AmortizacionJson');
 
 const initializeDatabase = async (dbConfig) => {
   try {
-    sequelize = new Sequelize(
-      dbConfig.name,
-      dbConfig.user,
-      dbConfig.password,
-      {
-        host: dbConfig.host,
-        port: dbConfig.port,
-        dialect: 'mysql',
-        logging: false,
-        timezone: '+00:00'
-      }
-    );
+    // Inicializar stores JSON
+    await User.initialize();
+    await Amortizacion.initialize();
 
-    // Importar modelos
-    const User = userModel(sequelize);
-    const Amortizacion = amortizacionModel(sequelize, User);
+    console.log('✓ Datos cargados desde JSON');
 
-    // Sincronizar modelos con BD
-    await sequelize.sync({ alter: true });
-
-    console.log('✓ Conectado a MySQL');
-
-    return { sequelize, User, Amortizacion };
+    return { User, Amortizacion };
   } catch (error) {
-    console.error('✗ Error conectando a MySQL:', error.message);
+    console.error('✗ Error inicializando:', error.message);
     throw error;
   }
 };
