@@ -30,7 +30,7 @@ class Amortizacion {
   }
 
   static async findAll(options = {}) {
-    let sql = 'SELECT * FROM amortizaciones';
+    let sql = 'SELECT * FROM amortizaciones ORDER BY createdAt DESC';
     let params = [];
 
     if (options.where) {
@@ -44,7 +44,7 @@ class Amortizacion {
         params.push(options.where.status);
       }
       if (conditions.length > 0) {
-        sql += ' WHERE ' + conditions.join(' AND ');
+        sql = `SELECT * FROM amortizaciones WHERE ${conditions.join(' AND ')} ORDER BY createdAt DESC`;
       }
     }
 
