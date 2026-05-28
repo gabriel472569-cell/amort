@@ -72,7 +72,7 @@ loginForm.addEventListener('submit', async (event) => {
     await postJson('/api/auth/login', { email, password });
     await loadUser();
   } catch (error) {
-    alert(error.message);
+    showModal('Error de Inicio de Sesión', error.message, false);
   }
 });
 
@@ -136,7 +136,7 @@ form.addEventListener('submit', async (event) => {
     updateSummary({ pagoPeriodo: '-', totalPagado: '-', totalInteres: '-' });
     await loadRecords();
   } catch (error) {
-    alert(error.message || 'Error al guardar la amortización');
+    showModal('Error', error.message || 'Error al guardar la amortización', false);
   }
 });
 

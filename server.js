@@ -66,6 +66,11 @@ app.use('/api', apiLimiter);
     setUserModel(User);
     setAmortizacionModel(Amortizacion);
     
+    // Iniciar el servidor solo después de que la BD esté lista
+    app.listen(PORT, () => {
+      console.log(`✓ Servidor escuchando en puerto ${PORT}`);
+    });
+
     console.log('✓ Servidor iniciado en http://localhost:' + PORT);
     console.log('✓ Ambiente: ' + (process.env.NODE_ENV || 'development'));
   } catch (error) {
@@ -112,7 +117,7 @@ function calcularPago(monto, tasaAnual, plazoAnios, pagosAno) {
 // ============= ROUTES =============
 
 // ===== AUTH ROUTES =====
-app.post('/api/auth/register', registerLimiter, async (req, res) => {
+app.post('/api/auth/register', async (req, res) => {
   try {
     const { error, value } = registerSchema.validate(req.body);
     if (error) return res.status(400).json({ error: error.details[0].message });
@@ -140,7 +145,7 @@ app.post('/api/auth/register', registerLimiter, async (req, res) => {
   }
 });
 
-app.post('/api/auth/login', loginLimiter, async (req, res) => {
+app.post('/api/auth/login', async (req, res) => {
   try {
     const { error, value } = loginSchema.validate(req.body);
     if (error) return res.status(400).json({ error: error.details[0].message });
@@ -429,9 +434,4 @@ app.get('/api/amortizaciones/:id/export-pdf', requireAuth, async (req, res) => {
 // FALLBACK ROUTE
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-// INICIAR SERVIDOR
-app.listen(PORT, () => {
-  console.log(`✓ Servidor escuchando en puerto ${PORT}`);
 });
