@@ -9,8 +9,12 @@
 <body>
   <div class="container">
     <header>
-      <h1>Panel de Amortizaciones</h1>
-      <p>Un espacio profesional para estudiantes de Administración de Empresas que gestionan y revisan planes de pago.</p>
+      <div class="header-content">
+        <div class="header-text">
+          <h1>💰 Panel de Amortizaciones</h1>
+          <p>Plataforma profesional de gestión financiera para estudiantes de Administración de Empresas</p>
+        </div>
+      </div>
     </header>
 
     <section id="auth-section">
@@ -28,11 +32,6 @@
             </label>
             <button type="submit">Acceder</button>
           </form>
-          <p class="help-text">
-            <strong>Demo Admin:</strong><br>
-            usuario@empresa.com<br>
-            Contraseña: admin123
-          </p>
         </div>
 
         <div class="auth-card">
@@ -206,6 +205,16 @@
         </section>
       </section>
     </section>
+  </div>
+
+  <!-- Modal de resultado de registro -->
+  <div id="modal-resultado" class="modal hidden">
+    <div class="modal-content">
+      <div id="modal-icon" class="modal-icon"></div>
+      <h2 id="modal-titulo"></h2>
+      <p id="modal-mensaje"></p>
+      <button id="modal-btn" class="modal-btn">Aceptar</button>
+    </div>
   </div>
 
   <script src="app.js"></script>

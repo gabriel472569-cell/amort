@@ -27,9 +27,41 @@ const studentRecordsBody = document.getElementById('records-body');
 const teacherRecordsBody = document.getElementById('teacher-records-body');
 const usersBody = document.getElementById('users-body');
 const cancelarButton = document.getElementById('cancelar');
+const modalResultado = document.getElementById('modal-resultado');
+const modalIcon = document.getElementById('modal-icon');
+const modalTitulo = document.getElementById('modal-titulo');
+const modalMensaje = document.getElementById('modal-mensaje');
+const modalBtn = document.getElementById('modal-btn');
 
 let editingId = null;
 let currentUser = null;
+
+// Función para mostrar modal
+function showModal(titulo, mensaje, isSuccess = true) {
+  modalTitulo.textContent = titulo;
+  modalMensaje.textContent = mensaje;
+  modalIcon.className = `modal-icon ${isSuccess ? 'success' : 'error'}`;
+  modalResultado.classList.remove('hidden');
+}
+
+// Función para cerrar modal
+function closeModal() {
+  modalResultado.classList.add('hidden');
+}
+
+// Cerrar modal al hacer clic en el botón
+modalBtn.addEventListener('click', closeModal);
+
+// Validar contraseña
+function validatePassword(password) {
+  if (!password || password.trim().length === 0) {
+    return { valid: false, message: 'La contraseña es obligatoria.' };
+  }
+  if (password.length < 6) {
+    return { valid: false, message: 'La contraseña debe tener mínimo 6 caracteres.' };
+  }
+  return { valid: true };
+}
 
 loginForm.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -48,13 +80,35 @@ registerForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const name = document.getElementById('register-name').value.trim();
   const email = document.getElementById('register-email').value.trim();
-  const password = document.getElementById('register-password').value.trim();
+  const password = document.getElementById('register-password').value;
+
+  // Validar contraseña
+  const passwordValidation = validatePassword(password);
+  if (!passwordValidation.valid) {
+    showModal('Error en el registro', passwordValidation.message, false);
+    return;
+  }
+
+  // Validar nombre
+  if (!name || name.length < 2) {
+    showModal('Error en el registro', 'El nombre debe tener al menos 2 caracteres.', false);
+    return;
+  }
 
   try {
     await postJson('/api/auth/register', { name, email, password });
-    await loadUser();
+    showModal('¡Registro exitoso!', '¡Bienvenido! Tu cuenta ha sido creada correctamente.', true);
+    
+    // Limpiar formulario
+    registerForm.reset();
+    
+    // Redirigir después de 2 segundos
+    setTimeout(() => {
+      closeModal();
+      loadUser();
+    }, 2000);
   } catch (error) {
-    alert(error.message);
+    showModal('Error en el registro', error.message || 'Ocurrió un error al registrar tu cuenta.', false);
   }
 });
 

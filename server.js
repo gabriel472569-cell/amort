@@ -58,7 +58,7 @@ app.use('/api', apiLimiter);
 // INICIALIZAR BD
 (async () => {
   try {
-    const db = await initializeDatabase(dbConfig);
+    const db = await initializeDatabase();
     User = db.User;
     Amortizacion = db.Amortizacion;
     
@@ -66,13 +66,11 @@ app.use('/api', apiLimiter);
     setUserModel(User);
     setAmortizacionModel(Amortizacion);
     
-    await seedData();
-    
     console.log('✓ Servidor iniciado en http://localhost:' + PORT);
     console.log('✓ Ambiente: ' + (process.env.NODE_ENV || 'development'));
   } catch (error) {
     console.error('✗ Error inicializando:', error.message);
-    console.log('⚠ Continuando sin base de datos...');
+    process.exit(1);
   }
 })();
 
@@ -134,7 +132,7 @@ app.post('/api/auth/register', registerLimiter, async (req, res) => {
     req.session.userId = user.id;
     res.status(201).json({ 
       message: 'Usuario registrado exitosamente',
-      user: user.toJSON()
+      user: User.toJSON(user)
     });
   } catch (error) {
     console.error('Error en registro:', error);
@@ -152,17 +150,16 @@ app.post('/api/auth/login', loginLimiter, async (req, res) => {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
 
-    const isPasswordValid = await user.comparePassword(value.password);
+    const isPasswordValid = await User.comparePassword(value.password, user.passwordHash);
     if (!isPasswordValid) {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
 
-    await user.update({ lastLogin: new Date() });
     req.session.userId = user.id;
 
     res.json({ 
       message: 'Login exitoso',
-      user: user.toJSON()
+      user: { id: user.id, name: user.name, email: user.email, role: user.role }
     });
   } catch (error) {
     console.error('Error en login:', error);
@@ -178,7 +175,7 @@ app.post('/api/auth/logout', (req, res) => {
 });
 
 app.get('/api/auth/me', requireAuth, (req, res) => {
-  res.json(req.user.toJSON());
+  res.json(User.toJSON(req.user));
 });
 
 // ===== USER ROUTES =====
