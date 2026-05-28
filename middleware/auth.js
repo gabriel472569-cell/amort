@@ -22,8 +22,8 @@ async function requireAuth(req, res, next) {
 
     const user = await User.findByPk(userId);
     
-    if (!user || !user.isActive) {
-      return res.status(401).json({ error: 'Usuario no encontrado o inactivo' });
+    if (!user) {
+      return res.status(401).json({ error: 'Usuario no encontrado' });
     }
 
     req.user = user;
